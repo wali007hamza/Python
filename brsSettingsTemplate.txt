@@ -1,0 +1,4 @@
+MaxNumberOfSettings:10
+Template:<Value>FriendlyName:OneDrivePlanProvisioning_CWW_{FriendlyNameSuffix};CorrelationId:{CorrelationId};SyncerType:OneDriveProvisioner;NumberOfPartitions:100;ScheduleInterval:1800;PerformWrites:True;PartitionKeyLowerBound:{PartitionKeyLowerBound};PartitionKeyUpperBound:{PartitionKeyUpperBound}</Value>
+
+

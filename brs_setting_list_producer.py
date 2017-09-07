@@ -9,10 +9,13 @@ def GenerateBrsSetting(template, noOfSettings: int):
     idx = 0
     settingsArray = []
     while(idx < len(positionalArray) - batchSize):
-        settingsArray.append(template.format(CorrelationId=uuid.uuid4(), PartitionKeyLowerBound="CWW_{}".format(positionalArray[idx]), PartitionKeyUpperBound="CWW_{}".format(positionalArray[idx + batchSize - 1])))
+        settingsArray.append(template.format(FriendlyNameSuffix=positionalArray[idx], CorrelationId=uuid.uuid4(), PartitionKeyLowerBound="CWW_{}".format(
+            positionalArray[idx]), PartitionKeyUpperBound="CWW_{}".format(positionalArray[idx + batchSize - 1])))
         idx = idx + batchSize - 1
 
-    settingsArray.append(template.format(CorrelationId=uuid.uuid4(),
+    settingsArray.append(template.format(
+        FriendlyNameSuffix=positionalArray[idx],
+        CorrelationId=uuid.uuid4(),
         PartitionKeyLowerBound="CWW_{}".format(positionalArray[idx]),
         PartitionKeyUpperBound="CWW_{}".format(positionalArray[len(positionalArray) - 1])))
 
@@ -20,9 +23,16 @@ def GenerateBrsSetting(template, noOfSettings: int):
 
 
 def GetAlphaNumericPositionalArray():
-    positionalArray = [chr(char) for char in range(ord('a'), ord('z') + 1)]
-    positionalArray.extend([chr(char) for char in range(ord('0'), ord('9') + 1)])
+    positionalArray = [chr(char) for char in range(ord('0'), ord('9') + 1)]
+    positionalArray.extend([chr(char)
+                            for char in range(ord('a'), ord('f') + 1)])
     return positionalArray
+
+
+def WriteToFile(settingsArray):
+    file = open("BrsSettings.txt", "w")
+    file.write("\n".join(settingsArray))
+    file.close()
 
 
 if __name__ == "__main__":
@@ -39,4 +49,4 @@ if __name__ == "__main__":
                 template = text.split("Template:")[1]
 
     settingsArray = GenerateBrsSetting(template, numberOfSettings)
-    print("\n".join(settingsArray))
+    WriteToFile(settingsArray)
