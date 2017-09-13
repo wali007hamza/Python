@@ -12,7 +12,7 @@ def find_largest_forest_size(N, M, matrix):
     largest_forest = -1
     for ni in range(N):
         for mi in range(N):
-            if(markingMatrix[ni][mi] == 1):
+            if(markingMatrix[ni][mi] > 0):
                 continue
             if(matrix[ni][mi] == 1):
                 forest_size = dfs(N, M, ni, mi, matrix, markingMatrix) + 1
@@ -22,7 +22,7 @@ def find_largest_forest_size(N, M, matrix):
 
 def dfs(N, M, nx, mx, matrix, markingMatrix):
     counter = 0
-    if(markingMatrix[nx][mx] == 1):
+    if(markingMatrix[nx][mx] == 2):
         return 0
     for i in DIRECTIONAL_ARRAY:
         for j in DIRECTIONAL_ARRAY:
@@ -34,13 +34,13 @@ def dfs(N, M, nx, mx, matrix, markingMatrix):
             if(pos_n < 0 or pos_n >= N or pos_m < 0 or pos_m >= M):
                 continue
 
-            if(markingMatrix[pos_n][pos_m] == 1):
+            if(markingMatrix[pos_n][pos_m] > 0):
                 continue
 
             if(matrix[pos_n][pos_m] == 1):
-                markingMatrix[nx][mx] = 1
-                counter = counter + dfs(N, M, pos_n, pos_m, matrix, markingMatrix) + 1
+                markingMatrix[nx][mx] = 2
                 markingMatrix[pos_n][pos_m] = 1
+                counter = counter + dfs(N, M, pos_n, pos_m, matrix, markingMatrix) + 1
 
     return counter;
 
