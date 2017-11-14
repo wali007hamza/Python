@@ -2,22 +2,22 @@ import fileinput
 import re
 import uuid
 
-
-def GenerateBrsSetting(template, noOfSettings: int):
+def GenerateBrsSetting(template, noOfSettings: int, entity_prefix: str):
     positionalArray = GetAlphaNumericPositionalArray()
     batchSize = int(len(positionalArray) / noOfSettings) + 2
     idx = 0
     settingsArray = []
     while(idx < len(positionalArray) - batchSize):
-        settingsArray.append(template.format(FriendlyNameSuffix=positionalArray[idx], CorrelationId=uuid.uuid4(), PartitionKeyLowerBound="CWW_{}".format(
-            positionalArray[idx]), PartitionKeyUpperBound="CWW_{}".format(positionalArray[idx + batchSize - 1])))
+        settingsArray.append(template.format(FriendlyNameSuffix=positionalArray[idx], CorrelationId=uuid.uuid4(), PartitionKeyLowerBound="{}_{}".format(
+            entity_prefix, positionalArray[idx]), PartitionKeyUpperBound="{}_{}".format(
+                entity_prefix, positionalArray[idx + batchSize - 1])))
         idx = idx + batchSize - 1
 
     settingsArray.append(template.format(
         FriendlyNameSuffix=positionalArray[idx],
         CorrelationId=uuid.uuid4(),
-        PartitionKeyLowerBound="CWW_{}".format(positionalArray[idx]),
-        PartitionKeyUpperBound="CWW_{}".format(positionalArray[len(positionalArray) - 1])))
+        PartitionKeyLowerBound="{}_{}".format(entity_prefix, positionalArray[idx]),
+        PartitionKeyUpperBound="{}_{}".format(entity_prefix, positionalArray[len(positionalArray) - 1])))
 
     return settingsArray
 
@@ -48,5 +48,5 @@ if __name__ == "__main__":
             if(text.startswith("Template")):
                 template = text.split("Template:")[1]
 
-    settingsArray = GenerateBrsSetting(template, numberOfSettings)
+    settingsArray = GenerateBrsSetting(template, numberOfSettings, "EWW")
     WriteToFile(settingsArray)
