@@ -18,14 +18,13 @@ def GenerateBrsSetting(template, noOfSettings: int, entity_prefix: str):
         CorrelationId=uuid.uuid4(),
         PartitionKeyLowerBound="{}_{}".format(entity_prefix, positionalArray[idx]),
         PartitionKeyUpperBound="{}_{}".format(entity_prefix, positionalArray[len(positionalArray) - 1])))
-
     return settingsArray
 
 
 def GetAlphaNumericPositionalArray():
     positionalArray = [chr(char) for char in range(ord('0'), ord('9') + 1)]
     positionalArray.extend([chr(char)
-                            for char in range(ord('a'), ord('f') + 1)])
+                            for char in range(ord('a'), ord('g') + 1)])
     return positionalArray
 
 
@@ -48,5 +47,5 @@ if __name__ == "__main__":
             if(text.startswith("Template")):
                 template = text.split("Template:")[1]
 
-    settingsArray = GenerateBrsSetting(template, numberOfSettings, "EWW")
+    settingsArray = GenerateBrsSetting(template, numberOfSettings, "CWW")
     WriteToFile(settingsArray)
