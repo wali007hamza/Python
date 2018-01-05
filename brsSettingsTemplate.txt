@@ -1,4 +1,4 @@
 MaxNumberOfSettings:10
-Template:<Value>FriendlyName:EnterpriseReconciler_{FriendlyNameSuffix};CorrelationId:{CorrelationId};SyncerType:EnterpriseReconciler;NumberOfPartitions:20;ScheduleInterval:1800;PerformWrites:True;PartitionKeyLowerBound:{PartitionKeyLowerBound};PartitionKeyUpperBound:{PartitionKeyUpperBound}</Value>
+Template:<Value>FriendlyName:SkypeProvisioning_{FriendlyNameSuffix};CorrelationId:{CorrelationId};SyncerType:SkypeProvisioner;NumberOfPartitions:20;ScheduleInterval:1800;PerformWrites:True;PartitionKeyLowerBound:{PartitionKeyLowerBound};PartitionKeyUpperBound:{PartitionKeyUpperBound}</Value>
 
 
