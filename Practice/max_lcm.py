@@ -37,7 +37,12 @@ def gcd(a: int, b: int):
     return a
 
 
+def find_largest_lcm(n: int):
+    for
+
 if __name__ == "__main__":
-    # primes, sieve = create_sieve(int(300))
-    lcm_val = composite_lcm(65, 10, 5)
-    print(lcm_val)
+    t = int(input().strip())
+    for i in range(t):
+        n = int(input().strip())
+        val = find_largest_lcm(n)
+        print(val)
