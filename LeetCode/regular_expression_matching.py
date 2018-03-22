@@ -2,14 +2,16 @@ import sys
 from abc import ABC, abstractmethod, abstractproperty
 
 class StateMachine(ABC):
+    def __init__(self):
+        self._next_state_machine = None
 
-    @abstractproperty
+    @property
     def next_state_machine(self):
-        pass
+        return self._next_state_machine
 
     @next_state_machine.setter
     def next_state_machine(self, new_value):
-        pass
+        self._next_state_machine = new_value
 
     @abstractmethod
     def process(self, string, start_pos):
@@ -18,15 +20,15 @@ class StateMachine(ABC):
 class CharAndStarStateMachine(StateMachine):
     def __init__(self, character: str):
         self.character = character
-        self._value = None
+        super()
 
     @property
     def next_state_machine(self):
-        return self._value
+        return super().next_state_machine
 
     @next_state_machine.setter
     def next_state_machine(self, new_value):
-        self._value = new_value
+        StateMachine._next_state_machine = new_value
 
     def process(self, string, start_pos):
         i = start_pos
@@ -35,18 +37,23 @@ class CharAndStarStateMachine(StateMachine):
         start_pos = i
 
         result = True
-        if(self.next_state_machine != None):
-            result = self.next_state_machine.process(string, start_pos)
+        if(super().next_state_machine != None):
+            result = super().next_state_machine.process(string, start_pos)
 
         print(self.character)
         return result
+
+
+class DotStateMachine(StateMachine):
+    def __init__(self):
+        self._next_state_machine = None
 
 
 class Solution:
     def isMatch(self, string, pattern):
         charAndStarStateMachine = CharAndStarStateMachine('b')
         charAndStarStateMachine2 = CharAndStarStateMachine('c')
-        # charAndStarStateMachine.next_state_machine = charAndStarStateMachine2
+        charAndStarStateMachine.next_state_machine = charAndStarStateMachine2
         result = charAndStarStateMachine.process(string, 0)
         return result
 
