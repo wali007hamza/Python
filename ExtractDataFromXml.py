@@ -16,6 +16,7 @@ def ParseXML(file_location):
             for product in product_groups.iter('Product'):
                 product_config_name = product.attrib['ProductConfigName']
                 pkpn = product.find('PKPN')
+                releaseId = product.find('ProductReleaseId')
                 version = product.attrib['Version']
                 product_type = product.attrib["{http://www.w3.org/2001/XMLSchema-instance}type"]
                 if(pkpn != None):
@@ -25,7 +26,7 @@ def ParseXML(file_location):
     with open('OfferData.csv', 'w') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(
-            ['OfferId', 'Category', 'ProductConfigName', 'Version', 'Type', 'PKPN'])
+            ['OfferId', 'Category', 'ProductConfigName', 'Version', 'Type', 'PKPN', 'ReleaseId'])
         for data in listOfData:
             writer.writerow(data)
 
