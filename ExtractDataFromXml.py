@@ -21,7 +21,7 @@ def ParseXML(file_location):
                 product_type = product.attrib["{http://www.w3.org/2001/XMLSchema-instance}type"]
                 if(pkpn != None):
                     data = (offer_id, category, product_config_name,
-                            version, product_type, pkpn.text)
+                            version, product_type, pkpn.text, releaseId.text if releaseId != None else None)
                     listOfData.append(data)
     with open('OfferData.csv', 'w') as csv_file:
         writer = csv.writer(csv_file)
