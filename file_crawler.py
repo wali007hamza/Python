@@ -4,13 +4,20 @@ import queue
 
 
 def is_node_file(node_path: str):
-    return os.path.isfile(node_path)
+    try:
+        return os.path.isfile(node_path)
+    except:
+        return False
+
 
 
 def get_file_size(file_path: str):
-    stat_info = os.stat(file_path)
-    file_size = stat_info.st_size
-    return file_size
+    try:
+        stat_info = os.stat(file_path)
+        file_size = stat_info.st_size
+        return file_size
+    except:
+        return 0
 
 
 def traverse_directories(bfs_queue: queue.Queue):
@@ -24,8 +31,12 @@ def traverse_directories(bfs_queue: queue.Queue):
                 max_file_size = curr_file_size
                 max_file_path = node_path
         else:
-            for sub_node in os.listdir(node_path):
-                bfs_queue.put(node_path + "\\" + sub_node)
+            try:
+                for sub_node in os.listdir(node_path):
+                    bfs_queue.put(node_path + "\\" + sub_node)
+            except:
+                print("Exception : {0}".format(sys.exc_info()[0]))
+                continue
 
     return (max_file_path, max_file_size)
 
