@@ -48,6 +48,5 @@ if __name__ == "__main__":
     mul_list = multiply(list1, list2)
     mul_list.reverse()
     s = [str(i) for i in mul_list]
-    print(s)
     mul_string = "".join(s)
-    print(mul_string)
+    print(mul_string[mul_string.find('0') + 1:])
