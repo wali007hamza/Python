@@ -11,23 +11,25 @@ class Solution():
             should_exit = 0
             j = i + 1
             k = arr_len - 1
-            while(j < k):
+            while (j < k):
                 current_sum = nums[i] + nums[j] + nums[k]
-                if(current_sum == 0):
-                    map_key = "{a} {b} {c}".format(a=str(nums[i]), b=nums[j], c=nums[k])
-                    if(not(map_key in triplets)):
+                if (current_sum == 0):
+                    map_key = "{a} {b} {c}".format(
+                        a=str(nums[i]), b=nums[j], c=nums[k])
+                    if (not (map_key in triplets)):
                         triplets.add(map_key)
                         triplets_list.append([nums[i], nums[j], nums[k]])
                     j = j + 1
-                elif(current_sum > 0):
+                elif (current_sum > 0):
                     k = k - 1
                 else:
                     j = j + 1
-                if(nums[i] == nums[j] and nums[j] == nums[k] and nums[i] == nums[k]):
+                if (nums[i] == nums[j] and nums[j] == nums[k]
+                        and nums[i] == nums[k]):
                     should_exit += 1
-                if(should_exit > 2):
+                if (should_exit > 2):
                     break
-            if(should_exit > 2):
+            if (should_exit > 2):
                 break
 
         return triplets_list
